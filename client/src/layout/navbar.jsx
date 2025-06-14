@@ -12,13 +12,11 @@ export default function Navbar() {
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img
-            src=""
-            className="h-8"
+            src="/Screenshot_2025-06-14_170116-removebg-preview.png"
+            className="h-12"
             alt="Flowbite Logo"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            AgroBuddy
-          </span>
+          
         </Link>
 
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

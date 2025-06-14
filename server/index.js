@@ -6,13 +6,13 @@ const mongoose=require('mongoose');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-const session=require('session')
+const session=require("express-session")
 const weatherRoute = require("./routes/cropSuggestion/weatherRoute");
 const SuggestRoute=require("./routes/cropSuggestion/suggestion")
 const app = express();
-const dbUrl = "mongodb://127.0.0.1:27017/farmerApp";
+const UserRoute=require("./routes/user")
+const dbUrl = "mongodb://127.0.0.1:27017/AgroBuddy";
 sessionConfig = {
-  store,
   name: "yelpcamp",
   secret: "this should be a better session key",
   resave: false,
@@ -40,6 +40,7 @@ app.use(express.json());
 
 app.use("/api/weather", weatherRoute);
 app.use('/api',SuggestRoute);
+app.use("/user",UserRoute);
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Backend is live on port ${PORT}`);
