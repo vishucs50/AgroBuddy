@@ -15,7 +15,7 @@ export default function TransparentNav(){
                 <a href="/">Home</a>
               </li>
               <li>
-                <a href="/login">Login</a>
+                <a href="/Login">Login</a>
               </li>
               <li>
                 <a href="/register">Register</a>

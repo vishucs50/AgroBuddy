@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
-const PassportLocalMongoose = require("passport-local-mongoose");
-const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+
+const userSchema = new mongoose.Schema({
+  firebaseUID: { type: String, required: true, unique: true },
+  username: String,
+  email: String,
 });
-UserSchema.plugin(PassportLocalMongoose);
-module.exports = mongoose.model("User", UserSchema);
+
+module.exports = mongoose.model("User", userSchema);

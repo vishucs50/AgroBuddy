@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import { replace, useNavigate } from "react-router";
+import {useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { auth  } from "../../config/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 export default function RegisterForm() {
   const {
     register,
@@ -12,10 +13,18 @@ export default function RegisterForm() {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async ({username,email,password}) => {
     try {
-      const res = await axios.post("/user/register", data);
-      toast.success(`${res.data.message}, ${res.data.user}!`);
+      const userCred=await createUserWithEmailAndPassword(auth,email,password);
+      const user=userCred.user;
+      await updateProfile(user,{username:username});
+      const idToken=await user.getIdToken();
+      await axios.post("/user/register",  {
+        username,
+        email,
+        token: idToken,
+      });
+      toast.success("User Registered Successfully");
       navigate("/cropsuggest", { replace: true });
     } catch (error) {
       toast.error("Registration failed");
@@ -42,7 +51,7 @@ export default function RegisterForm() {
           <input
             type="text"
             placeholder=" "
-            {...register("username", { required: "Username is required" })}
+            {...register("username", { required: "Username is required"})}
             className="peer w-full bg-zinc-800 text-white px-3 pt-5 pb-2 rounded-md border border-zinc-600 outline-none focus:border-cyan-400"
           />
           <span className="absolute left-3 top-2 text-sm text-white/50 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-cyan-400">
@@ -111,7 +120,7 @@ export default function RegisterForm() {
 
       <p className="text-sm text-center text-white/70">
         Already have an account?{" "}
-        <a href="/login" className="text-cyan-400 hover:underline">
+        <a href="/Login" className="text-cyan-400 hover:underline">
           Signin
         </a>
       </p>

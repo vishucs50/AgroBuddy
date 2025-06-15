@@ -1,6 +1,6 @@
-import StaticFarm from "./farmersvg";
-import Form from "../components/registerform";
-import TransparentNav from "../components/transparentnav";
+import StaticFarm from "../components/farmersvg";
+import Form from "../components/forms/registerform";
+import TransparentNav from "../components/forms/transparentnav";
 export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-blue-400">

@@ -1,6 +1,6 @@
-import StaticFarm from "./farmersvg";
-import Form from "../components/loginform";
-import TransparentNav from "../components/transparentnav";
+import StaticFarm from "../components/farmersvg";
+import Form from "../components/forms/loginform";
+import TransparentNav from "../components/forms/transparentnav";
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-blue-400">
