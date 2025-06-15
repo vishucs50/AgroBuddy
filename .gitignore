@@ -2,3 +2,4 @@
 /server/node_modules/
 /server/.env
 /server/agrobuddy-4d0f8-firebase-adminsdk-fbsvc-86b3bcaf05.json
+/client/src/config/firebase.js
