@@ -25,7 +25,7 @@ export default function RegisterForm() {
         token: idToken,
       });
       toast.success("User Registered Successfully");
-      navigate("/cropsuggest", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       toast.error("Registration failed");
       console.error(error);

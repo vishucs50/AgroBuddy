@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter } from "react-router";
+import { AuthProvider } from "./context/authContext.jsx";
 import "./index.css";
 const darkTheme = createTheme({
   palette: {
@@ -14,11 +15,13 @@ const darkTheme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-  <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline /> {/* 👈 Normalizes styles for dark mode */}
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+      <AuthProvider>
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline /> {/* 👈 Normalizes styles for dark mode */}
+          <App />
+        </ThemeProvider>
+      </AuthProvider>
+    </React.StrictMode>
   </BrowserRouter>
 );

@@ -1,7 +1,8 @@
     const express = require("express");
     const router = express.Router();
     const crops = require("../../crops.json");
-    const axios = require("axios");
+    const Land=require('../../models/land');
+    const User = require("../../models/user");
     require("dotenv").config();
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     // Function to filter crops based on input
@@ -21,15 +22,34 @@
       });
       
 
-    router.post("/cropsuggest", (req, res) => {
-      const { soilType, soilFertility, WeatherConditions } = req.body;
+    router.post("/cropsuggest",async  (req, res) => {
+      const {
+        soilType,
+        soilFertility,
+        WeatherConditions,
+        firebaseUID,
+        email,
+        displayName,
+      } = req.body;
 
       const ph = soilType;
       const fertility = soilFertility;
       const rainfall = parseFloat(WeatherConditions?.Rainfall);
       const temperature = parseFloat(WeatherConditions?.Temperature);
+      let dbUser = await User.findOne({ firebaseUID: firebaseUID });
+      if (!dbUser) {
+        dbUser = await User.create({ firebaseUID, email, displayName });
+      }
 
-      console.log("Parsed body:", { ph, fertility, rainfall, temperature });
+      const land = new Land({
+        ph,
+        fertility,
+        rainfall,
+        temperature,
+        email,
+        ownerId: dbUser._id,
+      });
+      await land.save();
 
       const matched = matchedCrops(ph, fertility, rainfall, temperature); 
       const cropNames = matched.map((crop) => crop.name); 
