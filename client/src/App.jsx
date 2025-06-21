@@ -9,6 +9,8 @@ import Register from "./userRegisteration/register";
 import { useLocation } from "react-router";
 import LoginPage from "./userRegisteration/login";
 import PrivateRoute from "./context/privateRoute";
+import ViewLand from "./lands/viewLand";
+import Home from "./Home";
 function App() {
   const location = useLocation();
 
@@ -34,10 +36,22 @@ function App() {
             <PrivateRoute>
               <CropSuggestion />
             </PrivateRoute>
+            // <CropSuggestion/>
           }
         />
         <Route path="/register" element={<Register />} />
         <Route path="/Login" element={<LoginPage />} />
+        <Route path="/my-lands" element={<ViewLand />} />
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route path="newland" element={<AddLand />} /> */}
+        {/* <Route path="user" element={<Profile />} /> */}
       </Routes>
       {!shouldHideLayout && <Footer />}
     </>

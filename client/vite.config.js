@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from "@tailwindcss/vite";
 import svgr from "vite-plugin-svgr";
 export default defineConfig({
-  plugins: [react(),tailwindcss(),svgr()],
+  plugins: [react(), tailwindcss(), svgr()],
   server: {
     proxy: {
       "/api": {
@@ -12,6 +12,11 @@ export default defineConfig({
         secure: false,
       },
       "/user": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/land": {
         target: "http://localhost:3000",
         changeOrigin: true,
         secure: false,

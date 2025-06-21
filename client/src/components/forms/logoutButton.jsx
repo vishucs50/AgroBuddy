@@ -8,9 +8,9 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Firebase logs the user out
+      await signOut(auth);
       toast.success("Logged out successfully");
-      navigate("/login"); // Redirect after logout
+      navigate("/Login");
     } catch (error) {
       toast.error("Logout failed");
       console.error(error);

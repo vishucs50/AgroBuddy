@@ -1,17 +1,24 @@
 import { useForm } from "react-hook-form";
 import {useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/authContext";
 import axios from "axios";
+import { useEffect } from "react";
 import { auth  } from "../../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 export default function RegisterForm() {
+  const {user}=useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
   const navigate = useNavigate();
+  useEffect(() => {
+    if (user) {
+      navigate("/home", { replace: true }); // 🔁 Redirect to /home if already logged in
+    }
+  }, [user, navigate]);
 
   const onSubmit = async ({username,email,password}) => {
     try {

@@ -12,7 +12,7 @@ export default function TransparentNav(){
             </div>
             <ul className="flex gap-6 text-green-300 font-medium">
               <li>
-                <a href="/">Home</a>
+                <a href="/home">Home</a>
               </li>
               <li>
                 <a href="/Login">Login</a>

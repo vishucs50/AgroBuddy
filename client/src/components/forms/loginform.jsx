@@ -4,13 +4,23 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useUserContext } from "../../context/UserContext";
+import { useAuth } from "../../context/authContext";
+import { useEffect} from "react";
 const Form = () => {
+    const {setUserData}=useUserContext();
+    const {user}=useAuth();
     const {
         register,
         handleSubmit,
         formState:{errors},
     }=useForm();
     const navigate=useNavigate();
+    useEffect(() => {
+      if (user) {
+        navigate("/home", { replace: true });
+      }
+    }, [user, navigate]);
     const onSubmit=async ({email,password})=>{
         try{
             const userCred=await signInWithEmailAndPassword(auth,email,password);
@@ -20,9 +30,8 @@ const Form = () => {
               email,
               token: idToken,
             });
-            console.log(userid);
+            setUserData(userid.data.user);
             toast.success(`Welcome back,${userid.data.user.username}`);
-            navigate("/cropsuggest", { replace: true });
         }
         catch(err)
         {
@@ -65,6 +74,7 @@ const Form = () => {
           <input
             type="password"
             required
+            autoComplete="true"
             className="peer w-full bg-zinc-800 text-white px-3 pt-5 pb-2 rounded-md border border-zinc-600 outline-none focus:border-cyan-400"
             placeholder=" "
             {...register("password", { required: "Password is required" })}

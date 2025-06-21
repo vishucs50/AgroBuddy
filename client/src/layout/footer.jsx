@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="bg-gray-900 text-white py-6">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} YourCompany. All rights reserved.
+          &copy; {new Date().getFullYear()} AgroBuddy. All rights reserved.
         </p>
 
         <div className="flex space-x-6 mt-4 md:mt-0">

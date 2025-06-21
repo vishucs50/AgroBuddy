@@ -24,14 +24,11 @@ router.post("/login", async (req, res) => {
   try {
     const decoded = await admin.auth().verifyIdToken(token);
     const uid = decoded.uid;
-
-    // Fetch user from DB if needed
     const user = await User.findOne({ firebaseUID: uid });
-    res.status(200).json({ message: "Login verified", user });
+    res.status(200).json({ user });
   } catch (err) {
     res.status(401).json({ error: "Invalid token" });
   }
 });
-
 
 module.exports=router;

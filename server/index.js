@@ -9,7 +9,7 @@ const SuggestRoute=require("./routes/cropSuggestion/suggestion")
 const app = express();
 const UserRoute=require("./routes/user")
 const dbUrl = "mongodb://127.0.0.1:27017/AgroBuddy";
-
+const landRoute=require('./routes/land')
 mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -20,6 +20,7 @@ app.use(express.json());
 app.use("/api/weather", weatherRoute);
 app.use('/api',SuggestRoute);
 app.use("/user",UserRoute);
+app.use("/land",landRoute);
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Backend is live on port ${PORT}`);
