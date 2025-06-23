@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import {useNavigate } from "react-router";
+import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/authContext";
 import axios from "axios";
@@ -16,7 +17,7 @@ export default function RegisterForm() {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
-      navigate("/home", { replace: true }); // 🔁 Redirect to /home if already logged in
+      navigate("/home", { replace: true }); 
     }
   }, [user, navigate]);
 
@@ -31,8 +32,10 @@ export default function RegisterForm() {
         email,
         token: idToken,
       });
+      await signOut(auth);
+      navigate("/Login");
       toast.success("User Registered Successfully");
-      navigate("/", { replace: true });
+      toast.success("Login ")
     } catch (error) {
       toast.error("Registration failed");
       console.error(error);

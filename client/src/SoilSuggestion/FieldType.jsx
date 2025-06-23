@@ -11,25 +11,27 @@ import SoilFertility from "./SoilFertility";
 import WeatherInput from "./WeatherInput";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-function handleInvalidInput() {
-  toast.error("Invalid input! Please try again.");
-}
-
-function handleSuccess() {
-  toast.success("Success! Your data has been saved.");
-}
-
+import { useLocation } from "react-router";
+import useLandStore from "../stores/LandStore";
+import axios from "axios";
 const steps = ["Soil Type", "Soil Fertility", "Weather Conditions"];
 
 export default function FieldType() {
-  const navigate = useNavigate();
+  const {lands,updateLand}=useLandStore();
+  const {state}=useLocation();
+  const ex = state?.existingData;
+  const mode=state?.mode;
+  const index=state?.index;
+  const update=lands[index];
 
+  const navigate = useNavigate();
+  if(state) console.log(state);
   const [formData, setFormData] = useState({
-    soilType: 7,
-    soilFertility: null,
+    soilType: ex?.soilType ?? 7,
+    soilFertility: ex?.soilFertility ?? null,
     WeatherConditions: {
-      Rainfall: null,
-      Temperature: null,
+      Rainfall: ex?.WeatherConditions?.Rainfall ?? null,
+      Temperature: ex?.WeatherConditions?.Temperature ?? null,
     },
   });
 
@@ -42,11 +44,32 @@ export default function FieldType() {
   const allStepsCompleted = () => completedSteps() === totalSteps();
   const handleSubmit = async() => {
     try {
-      console.log(formData);
-      navigate("/cropsuggest", { state: formData });
-      handleSuccess();
+      const newData = {
+        ph: formData.soilType,
+        fertility: formData.soilFertility,
+        rainfall: formData.WeatherConditions.Rainfall,
+        temperature: formData.WeatherConditions.Temperature,
+      };
+      if(mode=="edit")
+      {
+        const id = update._id; 
+        const res=await axios.put(
+          `/land/update/${id}`,
+          newData
+        );
+        console.log(res);
+
+        // update Zustand store
+        updateLand(index, { ...update,...newData });
+        toast.success("Updated successfully");
+        navigate("/my-lands");
+      }
+      else{
+        navigate("/cropsuggest", { state: formData });
+        toast.success("Success! Your data has been saved.");
+      }
     } catch {
-      handleInvalidInput();
+      toast.error("Invalid input! Please try again.");
     }
   };
 
@@ -216,7 +239,7 @@ export default function FieldType() {
                     handleSubmit(); // Triggers useEffect to navigate
                   }}
                 >
-                  Finish
+                  {mode=="edit" ? "Update" : "Finish"}
                 </Button>
               ) : (
                 <Button variant="contained" onClick={handleComplete}>

@@ -21,7 +21,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="h-20 w-60 bg-green-700 rounded-md shadow-md flex items-center justify-center hover:bg-green-800">
-            <Link to="/newland" className="text-2xl">
+            <Link to="/update" className="text-2xl">
               Add Land
             </Link>
           </div>

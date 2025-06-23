@@ -5,8 +5,9 @@ import Card1 from "../components/card1";
 import { useAuth } from "../context/authContext";
 import { getAuth } from "firebase/auth";
 import { useUserContext } from "../context/UserContext";
-
+import useLandStore from "../stores/LandStore";
 export default function CropSuggestPage() {
+  const setLands=useLandStore((state)=>state.setLands);
   const { userData } = useUserContext();
   const { state } = useLocation();
   const [suggestedData, setSuggestedData] = useState([]);
@@ -35,7 +36,6 @@ export default function CropSuggestPage() {
             email: user.email,
             displayName: user.displayName || user.email,
           };
-
           console.log("Sending crop suggestion request with:", cleanData);
 
           const { data } = await axios.post("/api/cropsuggest", cleanData, {
@@ -46,8 +46,9 @@ export default function CropSuggestPage() {
           const res = await axios.get("/api/userland", {
             headers: { Authorization: `Bearer ${token}` },
           });
-
+          
           if (res.data.found) {
+            setLands(res.data.lands)
             setSuggestedData(res.data.suggestions);
           } else {
             console.log("No previous land data found");

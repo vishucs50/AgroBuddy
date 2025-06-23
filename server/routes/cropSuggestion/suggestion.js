@@ -63,7 +63,7 @@ router.post("/cropsuggest",async  (req, res) => {
       ownerId: dbUser._id,
     });
   }
-  res.json({ suggestions: cropNames });
+  res.json({ suggestions: cropNames,lands:existing });
 });
 
 

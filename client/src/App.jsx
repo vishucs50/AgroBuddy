@@ -14,7 +14,7 @@ import Home from "./Home";
 function App() {
   const location = useLocation();
 
-  const hideLayoutRoutes = ["/","/register","/Login"];
+  const hideLayoutRoutes = ["/update","/register","/Login"];
 
   const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
   return (
@@ -23,7 +23,7 @@ function App() {
       <ToastContainerComponent />
       <Routes>
         <Route
-          path="/"
+          path="/update"
           element={
             <PrivateRoute>
               <FieldType />

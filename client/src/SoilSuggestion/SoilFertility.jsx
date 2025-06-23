@@ -1,4 +1,3 @@
-
 import { Box, Typography } from "@mui/material";
 
 const options = [
@@ -10,26 +9,39 @@ const options = [
 export default function SoilFertility({
   title = "Soil Fertility",
   onSelect,
-  selected
+  selected,
 }) {
-
   const handleSelect = (option) => {
     if (onSelect) onSelect(option.label);
   };
 
   return (
     <>
-      <Typography variant="h5" color="black" gutterBottom>
+      <Typography
+        variant="h5"
+        color="black"
+        gutterBottom
+        sx={{ textAlign: "center", fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
+      >
         {title}
       </Typography>
-      <Box sx={{ display: "flex", gap: 5 }}>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: { xs: 2, sm: 4, md: 5 },
+          mt: 2,
+        }}
+      >
         {options.map((option) => (
           <Box
             key={option.id}
             onClick={() => handleSelect(option)}
             sx={{
-              height: 480,
-              width: 300,
+              height: { xs: 180, sm: 240, md: 300 },
+              width: { xs: 140, sm: 200, md: 250 },
               backgroundColor: option.color,
               borderRadius: 4,
               display: "flex",
@@ -38,11 +50,17 @@ export default function SoilFertility({
               cursor: "pointer",
               transition: "transform 0.2s, box-shadow 0.2s",
               boxShadow:
-                selected === option.label ? "0 0 20px #fff" : "0 0 10px #00000055",
-              transform: selected === option.label  ? "scale(1.05)" : "scale(1)",
+                selected === option.label
+                  ? "0 0 20px #fff"
+                  : "0 0 10px #00000055",
+              transform: selected === option.label ? "scale(1.05)" : "scale(1)",
             }}
           >
-            <Typography variant="h6" color="#fff">
+            <Typography
+              variant="h6"
+              color="#fff"
+              sx={{ fontSize: { xs: "0.9rem", sm: "1.1rem" } }}
+            >
               {option.label}
             </Typography>
           </Box>
