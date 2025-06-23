@@ -25,11 +25,15 @@ export default function Home() {
               Add Land
             </Link>
           </div>
-          <div className="h-20 w-60 bg-green-700 rounded-md shadow-md flex items-center justify-center hover:bg-green-800">
-            <Link to="/updateProfile" className="text-2xl">
-              Profile
-            </Link>
-          </div>
+          <div
+            className="h-20 w-60 bg-green-700 rounded-md shadow-md flex items-center justify-center hover:bg-green-800"
+            style={{
+              backgroundImage: `url("/images/imggg.png")`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
         </div>
       </div>
       {/* Quote */}

@@ -4,11 +4,11 @@ import axios from "axios";
 import Card1 from "../components/card1";
 import { useAuth } from "../context/authContext";
 import { getAuth } from "firebase/auth";
-import { useUserContext } from "../context/UserContext";
+// import { useUserContext } from "../context/UserContext";
 import useLandStore from "../stores/LandStore";
 export default function CropSuggestPage() {
   const setLands=useLandStore((state)=>state.setLands);
-  const { userData } = useUserContext();
+  // const { userData } = useUserContext();
   const { state } = useLocation();
   const [suggestedData, setSuggestedData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,14 +65,16 @@ export default function CropSuggestPage() {
       hasFetched.current = true;
       fetchSuggestions();
     }
-  }, [user, state]);
+  }, [user, state,setLands]);
 
   return (
-    <div className="min-h-screen pt-24 pb-10 px-4 bg-gradient-to-br from-slate-900 to-black text-white">
-      <div>
+    <div
+      className="min-h-screen pt-24 pb-10 px-4 bg-gradient-to-br from-slate-900 to-black text-white"
+      >
+      {/* <div>
         <h2>Hello {userData?.username || userData?.email}</h2>
         <p>Your Firebase UID: {userData?.uid}</p>
-      </div>
+      </div> */}
       <div className="max-w-full mx-auto">
         <h1 className="text-3xl font-bold text-green-500 mb-4">
           🌾 Crop Suggestions

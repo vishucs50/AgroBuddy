@@ -42,7 +42,7 @@ router.post("/cropsuggest",async  (req, res) => {
     dbUser = await User.create({ firebaseUID, email, displayName });
   }
   const matched = matchedCrops(ph, fertility, rainfall, temperature); 
-  const cropNames = matched.map((crop) => crop.name); 
+  const cropNames = matched.map((crop) => crop); 
   
   console.log("Matched Crops:", cropNames);
   const existing = await Land.findOne({
@@ -59,10 +59,10 @@ router.post("/cropsuggest",async  (req, res) => {
       fertility,
       rainfall,
       temperature,
-      email,
       ownerId: dbUser._id,
     });
   }
+  console.log(cropNames)
   res.json({ suggestions: cropNames,lands:existing });
 });
 

@@ -4,6 +4,7 @@
   import useLandStore from "../stores/LandStore";
   import { toast } from "react-toastify";
   import Update from "../components/forms/updateButton";
+  import { Link } from "react-router";
   export default function ViewLand() {
     const { userData } = useUserContext();
     const lands=useLandStore((state)=>state.lands);
@@ -54,7 +55,7 @@
                 ></div>
 
                 {/* Land Info */}
-                <div className="flex-1 overflow-auto flex flex-col gap-2 h-80 w-full rounded-xl p-4 ">
+                <div className="flex-1 overflow-auto flex flex-col gap-2 h-80 w-full rounded-xl p-4 hide-scrollbar">
                   <p className="text-gray-400 font-bold text-5xl ">
                     Owner: {land.name}
                   </p>
@@ -70,11 +71,17 @@
                   <p className="text-gray-600 font-bold text-2xl">
                     Temperature: {land.temperature}
                   </p>
-                  <div className="w-60 h-10 md:w-80 md:h-30 flex items-center  gap-5 mb-2">
-                  <Update land={land} index={index}/>
-                  <button className=" bg-red-600 p-3 h-10 w-20 flex items-center justify-center rounded-2xl  hover:bg-red-800" onClick={()=>handleDelete(land._id)}>
+                  <div className="w-80 h-10 md:w-80 md:h-30 flex items-center  gap-5 mb-2">
+                    <Update land={land} index={index} />
+                    <button
+                      className=" bg-red-600 p-3 h-10 w-20 flex items-center justify-center rounded-2xl  hover:bg-red-800"
+                      onClick={() => handleDelete(land._id)}
+                    >
                       Delete
                     </button>
+                    <Link to="/cropsuggest" className="bg-blue-500 text-white hover:bg-blue-600 p-3 h-10 w-30 flex items-center justify-center rounded-2xl no-underline">
+                      View Crops
+                    </Link>
                   </div>
                 </div>
               </div>
