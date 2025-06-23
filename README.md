@@ -29,8 +29,9 @@ A modern web application that helps farmers get crop suggestions based on soil t
 - MongoDB + Mongoose
 
 ---
-![Home Page](farmer/login.png)
-![Login Page](farmer/home.png)
+![Register Page](farmer/register.png)
+![Login Page](farmer/login.png)
+![Home Page](farmer/home.png)
 ![Add Land Page](farmer/soiltype.png)
 ![Add Land Page](farmer/soilfertility.png)
 ![Add Land Page](farmer/weathercond.png)
