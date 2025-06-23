@@ -11,7 +11,7 @@ A modern web application that helps farmers get crop suggestions based on soil t
 -  crop recommendations with image cards
 -  State persistence using Zustand + localStorage
 -  Protected routes and role-based rendering
-
+-  responsive 
 ---
 
 ## 🛠 Tech Stack
